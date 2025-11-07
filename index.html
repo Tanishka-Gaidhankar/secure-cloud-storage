@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud File Manager</title>
+    <link rel='stylesheet' href='../secure-cloud-storage/styles.css'>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">☁️</span>
+            <span>Cloud File Manager</span>
+        </div>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search files...">
+        </div>
+        <div class="header-actions">
+            <div class="view-toggle">
+                <button class="view-btn active" id="gridViewBtn" title="Grid View">▦</button>
+                <button class="view-btn" id="listViewBtn" title="List View">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <button class="upload-btn" id="uploadBtn">
+                <span>⬆️</span>
+                <span>Upload Files</span>
+            </button>
+            <button class="create-folder-btn" id="createFolderBtn">
+                <span>📁</span>
+                <span>New Folder</span>
+            </button>
+            <nav class="nav-section">
+                <div class="nav-item active" data-section="all">
+                    <span class="nav-icon">📁</span>
+                    <span>All Files</span>
+                </div>
+                <div class="nav-item" data-section="recent">
+                    <span class="nav-icon">🕐</span>
+                    <span>Recent</span>
+                </div>
+                <div class="nav-item" data-section="trash">
+                    <span class="nav-icon">🗑️</span>
+                    <span>Trash</span>
+                </div>
+            </nav>
+            <div class="storage-section">
+                <div class="storage-title">Storage</div>
+                <div class="storage-bar">
+                    <div class="storage-fill" id="storageFill" style="width: 0%"></div>
+                </div>
+                <div class="storage-text" id="storageText">0 GB of 15 GB used</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="content-header">
+                <h1 class="content-title" id="contentTitle">All Files</h1>
+                <div class="sort-controls">
+                    <label class="sort-label">Sort by:</label>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="name">Name</option>
+                        <option value="date">Date</option>
+                        <option value="size">Size</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Drop Zone (shown when empty) -->
+            <div id="dropZone" class="drop-zone" style="display: none;">
+                <div class="drop-icon">📤</div>
+                <div class="drop-text">Drag and drop files here</div>
+                <div class="drop-subtext">or click the Upload button</div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">📂</div>
+                <h2 class="empty-title">No files yet</h2>
+                <p class="empty-text">Upload your first file to get started</p>
+                <button class="upload-btn" onclick="document.getElementById('uploadBtn').click()">
+                    <span>⬆️</span>
+                    <span>Upload Files</span>
+                </button>
+            </div>
+
+            <!-- Files Grid View -->
+            <div id="filesGrid" class="files-grid" style="display: none;"></div>
+
+            <!-- Files List View -->
+            <div id="filesList" class="files-list" style="display: none;"></div>
+        </main>
+    </div>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="fileInput" multiple>
+
+    <!-- Rename Modal -->
+    <div class="modal-overlay" id="renameModal">
+        <div class="modal">
+            <h2 class="modal-title">Rename File</h2>
+            <input type="text" id="renameInput" class="modal-input" placeholder="Enter new name">
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" onclick="closeRenameModal()">Cancel</button>
+                <button class="modal-btn modal-btn-primary" onclick="confirmRename()">Rename</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Folder Modal -->
+    <div class="modal-overlay" id="folderModal">
+        <div class="modal">
+            <h2 class="modal-title">Create New Folder</h2>
+            <input type="text" id="folderInput" class="modal-input" placeholder="Enter folder name">
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" onclick="closeFolderModal()">Cancel</button>
+                <button class="modal-btn modal-btn-primary" onclick="confirmCreateFolder()">Create</button>
+            </div>
+        </div>
+    </div>
+    <script src="../secure-cloud-storage/script.js"></script>
+   
+</body>
+</html>
